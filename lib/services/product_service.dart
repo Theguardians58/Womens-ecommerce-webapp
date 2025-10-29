@@ -1,5 +1,6 @@
 import 'package:shearose/models/product.dart';
 import 'package:shearose/supabase/supabase_config.dart';
+import 'package:uuid/uuid.dart';
 
 class ProductService {
   static const String _tableName = 'products';
@@ -145,9 +146,10 @@ class ProductService {
     bool isFeatured = false,
   }) async {
     try {
+      const uuid = Uuid();
       final now = DateTime.now();
       final product = Product(
-        id: now.millisecondsSinceEpoch.toString(),
+        id: uuid.v4(),
         name: name,
         description: description,
         price: price,
