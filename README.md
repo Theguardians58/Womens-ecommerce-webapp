@@ -104,6 +104,51 @@ The app uses Supabase's built-in authentication for email and password sign-up a
 
 It is highly recommended to enable Row-Level Security on your Supabase tables to ensure that users can only access their own data. The SQL policies for RLS can be found in the `lib/supabase/` directory.
 
+## Deployment
+
+This project is configured for easy deployment to [Netlify](https://www.netlify.com/).
+
+### Connecting to Netlify
+
+1.  **Create a new site from Git:**
+    *   Log in to your Netlify account.
+    *   Click "Add new site" -> "Import an existing project".
+    *   Connect your Git provider (e.g., GitHub, GitLab, Bitbucket).
+    *   Select the repository for this project.
+
+2.  **Configure build settings:**
+    *   Netlify will automatically detect the `netlify.toml` file in the root of the repository and use the build settings from it.
+    *   You can leave the "Build command" and "Publish directory" fields blank, as they will be overridden by the `netlify.toml` file.
+
+3.  **Deploy your site:**
+    *   Click "Deploy site".
+    *   Netlify will build and deploy your Flutter web app.
+
+### `netlify.toml` Configuration
+
+The `netlify.toml` file in the root of the project contains the following configuration:
+
+```toml
+[build]
+  command = "flutter build web"
+  publish = "build/web"
+
+[dev]
+  command = "flutter run -d chrome"
+  port = 8686
+  publish = "build/web"
+  targetPort = 8686
+```
+
+*   **`[build]`:**
+    *   `command`: The command to build the Flutter web app.
+    *   `publish`: The directory that contains the built app.
+*   **`[dev]`:**
+    *   `command`: The command to run the app in development mode.
+    *   `port`: The port to run the development server on.
+    *   `publish`: The directory to serve in development mode.
+    *   `targetPort`: The port that the `flutter run` command will be listening on.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss any changes.
