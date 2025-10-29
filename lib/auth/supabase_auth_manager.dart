@@ -123,11 +123,16 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
         return;
       }
 
+      // Supabase Edge Function to handle user deletion securely.
+      // This is a placeholder for the actual implementation.
+      //
+      // SupabaseConfig.client.functions.invoke('delete-user');
+
       // Delete user from our users table first
       await SupabaseService.delete('users', filters: {'id': currentUser.id});
       
       // Then delete from auth
-      await SupabaseConfig.client.auth.admin.deleteUser(currentUser.id);
+      // await SupabaseConfig.client.auth.admin.deleteUser(currentUser.id);
       
       _showSuccessMessage(context, 'Account deleted successfully');
     } on AuthException catch (e) {
