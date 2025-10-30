@@ -3,7 +3,7 @@
 set -e
 
 # Define the Flutter version and download URL
-FLUTTER_VERSION="3.22.2"
+FLUTTER_VERSION="3.35.7"
 FLUTTER_SDK_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz"
 FLUTTER_PATH="$HOME/flutter"
 
