@@ -116,6 +116,11 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
 
   @override
   Future<void> deleteUser(BuildContext context) async {
+    //
+    // an Edge Function.
+    // DANGER: This method exposes the Supabase service_role key on the client-side.
+    // This is a major security risk and should be replaced with a call to a
+    // Supabase Edge Function that handles user deletion securely.
     try {
       final currentUser = SupabaseConfig.auth.currentUser;
       if (currentUser == null) {
@@ -123,17 +128,12 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
         return;
       }
 
-      // Supabase Edge Function to handle user deletion securely.
-      // This is a placeholder for the actual implementation.
-      //
-      // SupabaseConfig.client.functions.invoke('delete-user');
-
       // Delete user from our users table first
       await SupabaseService.delete('users', filters: {'id': currentUser.id});
-      
+
       // Then delete from auth
-      // await SupabaseConfig.client.auth.admin.deleteUser(currentUser.id);
-      
+      await SupabaseConfig.client.auth.admin.deleteUser(currentUser.id);
+
       _showSuccessMessage(context, 'Account deleted successfully');
     } on AuthException catch (e) {
       _showErrorMessage(context, e.message);

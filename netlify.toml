@@ -1,0 +1,9 @@
+[build]
+  command = "./netlify-build.sh"
+  publish = "build/web"
+
+[dev]
+  command = "flutter run -d chrome"
+  port = 8686
+  publish = "build/web"
+  targetPort = 8686
